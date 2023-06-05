@@ -1,0 +1,43 @@
+Input (Data): 
+ID	NAME
+1	HR
+2	Finance
+3	IT
+4	Ops
+5	Sales
+
+Output (Report)
+Fetch top 3 departments along with their name and average monthly salary. Below is the format of the report.
+
+DEPT_NAME
+AVG_MONTHLY_SALARY (USD)
+
+
+Task-1 SQL
+In the attachment above, use each worksheet as a table in a relational database and write an SQL query that generates the output report
+
+SOLUTION:
+SELECT DEPT_NAME, AVG(Salary) AS AVG_MONTHLY_SALARY
+FROM department_table
+GROUP BY DEPT_NAME
+ORDER BY AVG_MONTHLY_SALARY DESC
+LIMIT 3;
+
+#if multiple worksheets#
+
+SELECT d.NAME AS DEPT_NAME, AVG(e.salary) AS AVG_MONTHLY_SALARY
+FROM (
+  SELECT ID, NAME FROM worksheet1
+  UNION ALL
+  SELECT ID, NAME FROM worksheet2
+  UNION ALL
+  SELECT ID, NAME FROM worksheet3
+  -- Add more UNION ALL statements for additional worksheets if needed
+) AS d
+JOIN employees e ON d.ID = e.department_id
+GROUP BY d.NAME
+ORDER BY AVG_MONTHLY_SALARY DESC
+LIMIT 3;
+
+
+	
